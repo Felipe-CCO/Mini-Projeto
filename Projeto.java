@@ -1,5 +1,3 @@
-# Mini-Projeto
-
 import java.util.Scanner;
 
 public class Projeto {
@@ -10,7 +8,8 @@ public class Projeto {
     			
     	int opcao;
     	String nome = null;
-    			
+    	String arq = "teste.txt";
+    	
     	do{
     		System.out.println("================Menu================");
     		System.out.println("1 - Inserir nome no arquivo");
@@ -25,28 +24,29 @@ public class Projeto {
     					break;
     			case 1: System.out.println("Escreva o nome que deseja Inserir:");
     					nome = teclado.next();
+    					
+    					if(arquivo.Write(arq, nome))
+    			    		System.out.println("Arquivo salvo com sucesso!");
+    			    	else
+    			    		System.out.println("Erro ao salvar o arquivo!");
     					break;
     			case 2: 
+    					String Exibir = arquivo.Read(arq);
+    					
+    					if(Exibir.isEmpty())
+    						System.out.println("Erro ao ler do arquivo!");
+    					else
+    						System.out.println("Conteudo do aquivo:\n"+nome);
+    					break;
+    			case 3:
+    					String deletar = arquivo.File(arq);
+					
+    					if(deletar.isEmpty())
+    						System.out.println("Erro ao deletar do arquivo!");
     					break;
     			default: System.out.println("Opção Inválida");
     		}
     	} while (opcao != 0);
-    	
-    	//Inserir dados no txt
-    	String arq = "teste.txt";
-    	
-    	if(arquivo.Write(arq, nome))
-    		System.out.println("Arquivo salvo com sucesso!");
-    	else
-    		System.out.println("Erro ao salvar o arquivo!");
-    	
-    	//Exibir conteudo do txt
-    	String Exibir = arquivo.Read(arq);
-    	
-        if(Exibir.isEmpty())
-            System.out.println("Erro ao ler do arquivo!");
-        else
-            System.out.println("Conteudo do aquivo:\n"+nome);
     }
     
 }

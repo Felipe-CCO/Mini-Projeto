@@ -1,6 +1,5 @@
-# Mini-Projeto
-
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -10,11 +9,15 @@ import java.io.PrintWriter;
 public class arquivo {
 	
 	public static String Read(String Caminho){
+		
+		//Inserir Conteudo 
 	        String conteudo = "";
+	        
 	        try {
 	            FileReader arq = new FileReader(Caminho);
 	            BufferedReader lerArq = new BufferedReader(arq);
 	            String linha="";
+	            
 	            try {
 	                linha = lerArq.readLine();
 	                while(linha!=null){
@@ -23,6 +26,7 @@ public class arquivo {
 	                }
 	                arq.close();
 	                return conteudo;
+	                
 	            } catch (IOException ex) {
 	                System.out.println("Erro: Não foi possível ler o arquivo!");
 	                return "Erro";
@@ -33,6 +37,7 @@ public class arquivo {
 	        }
 	    }
 	
+	//Exibir Conteudo
     public static boolean Write(String Caminho,String Texto){
         try {
             FileWriter arq = new FileWriter(Caminho);
@@ -44,5 +49,12 @@ public class arquivo {
             System.out.println(e.getMessage());
             return false;
         }
+    }
+    
+    public static String File (String apagar) {
+    	File arq = new File(apagar);
+		if(arq.delete()) 
+	System.out.println("Arquivo Deletado Com sucesso");
+		return apagar;
     }
 }

@@ -1,60 +1,53 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Scanner;
 
-public class arquivo {
-	
-	public static String Read(String Caminho){
-		
-		//Inserir Conteudo 
-	        String conteudo = "";
-	        
-	        try {
-	            FileReader arq = new FileReader(Caminho);
-	            BufferedReader lerArq = new BufferedReader(arq);
-	            String linha="";
-	            
-	            try {
-	                linha = lerArq.readLine();
-	                while(linha!=null){
-	                    conteudo += linha+"\n";
-	                    linha = lerArq.readLine();
-	                }
-	                arq.close();
-	                return conteudo;
-	                
-	            } catch (IOException ex) {
-	                System.out.println("Erro: Não foi possível ler o arquivo!");
-	                return "Erro";
-	            }
-	        } catch (FileNotFoundException ex) {
-	            System.out.println("Erro: Arquivo não encontrado!");
-	            return "Erro";
-	        }
-	    }
-	
-	//Exibir Conteudo
-    public static boolean Write(String Caminho,String Texto){
-        try {
-            FileWriter arq = new FileWriter(Caminho);
-            PrintWriter gravarArq = new PrintWriter(arq);
-            gravarArq.println(Texto);
-            gravarArq.close();
-            return true;
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-            return false;
-        }
+public class Projeto {
+
+    public static void main(String[] args) {
+			
+    	Scanner teclado = new Scanner(System.in);
+    			
+    	int opcao;
+    	String nome = null;
+    	String arq = "teste.txt";
+    	
+    	do{
+    		System.out.println ("================Menu================");
+    		System.out.println ("1 - Inserir nome no arquivo");
+    		System.out.println ("2 - Exibir todos os nomes do arquivo");
+    		System.out.println ("3 - Apagar todo arquivo");
+    		System.out.println ("0 - Para Sair");
+    		System.out.println ("====================================");
+    		System.out.printf ("Opção: ");
+    		opcao = teclado.nextInt();
+    				
+    		switch(opcao) {
+    			case 0: System.out.println("\nPrograma Encerrado!");
+    					break;
+    			case 1: System.out.println("Escreva o nome que deseja Inserir:");
+    					nome = teclado.next();
+    					
+    					if(arquivo.Write(arq, nome))
+    			    		System.out.println("Arquivo salvo com sucesso!\n");
+    			    	else
+    			    		System.out.println("Erro ao salvar o arquivo!\n");
+    					break;
+    			case 2: 
+    					String Exibir = arquivo.Read(arq);
+    					
+    					if(Exibir.isEmpty())
+    						System.out.println("Erro ao ler do arquivo!\n");
+    					else
+    						System.out.println("Conteudo do aquivo:\n" + nome+"\n");
+    					break;
+    			case 3:
+    					String deletar = arquivo.File(arq);
+					
+    					if(deletar.isEmpty())
+    						System.out.println("Erro ao deletar do arquivo!");
+    					break;
+    			default: System.out.println("Opção Inválida");
+    		}
+    	} while (opcao != 0);
     }
     
-    public static String File (String apagar) {
-    	File arq = new File(apagar);
-		if(arq.delete()) 
-	System.out.println("Arquivo Deletado Com sucesso");
-		return apagar;
-    }
 }
